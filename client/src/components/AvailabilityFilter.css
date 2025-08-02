@@ -1,0 +1,83 @@
+.availability-container {
+    position: relative;
+    min-width: 200px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.availability-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    overflow-y: auto;
+}
+
+.availability-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #004a64;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.availability-badge.permanent {
+    background-color: #1B914C;
+    position: relative;
+}
+
+.availability-badge .remove-badge {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.availability-badge .remove-badge:hover {
+    opacity: 0.8;
+}
+
+.availability-select {
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid rgba(84, 84, 84, 0.353);
+    cursor: text;
+}
+
+.availability-select input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+}
+
+.availability-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid rgba(84, 84, 84, 0.2);
+    border-radius: 8px;
+    margin-top: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.availability-option {
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.availability-option:hover {
+    background-color: rgba(0, 74, 100, 0.1);
+}

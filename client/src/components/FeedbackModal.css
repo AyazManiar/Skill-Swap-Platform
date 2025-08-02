@@ -1,0 +1,222 @@
+.feedback-modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.feedback-modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 1px solid #e9ecef;
+  background: #f8f9fa;
+  border-radius: 12px 12px 0 0;
+}
+
+.feedback-modal .modal-header h2 {
+  color: #2c3e50;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.feedback-modal .close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.feedback-modal .close-button:hover {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.feedback-modal .modal-content {
+  padding: 30px;
+}
+
+.feedback-modal .feedback-info {
+  margin-bottom: 25px;
+}
+
+.feedback-modal .feedback-info p {
+  color: #495057;
+  font-size: 1rem;
+  margin: 0;
+  text-align: center;
+}
+
+.feedback-modal .rating-section {
+  margin-bottom: 25px;
+}
+
+.feedback-modal .rating-section label {
+  display: block;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.feedback-modal .star-rating {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.feedback-modal .star {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.feedback-modal .star:hover {
+  transform: scale(1.1);
+}
+
+.feedback-modal .star.filled {
+  color: #ffc107;
+}
+
+.feedback-modal .rating-text {
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.9rem;
+  min-height: 20px;
+}
+
+.feedback-modal .comment-section {
+  margin-bottom: 25px;
+}
+
+.feedback-modal .comment-section label {
+  display: block;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.feedback-modal .comment-section textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.feedback-modal .comment-section textarea:focus {
+  outline: none;
+  border-color: #1B914C;
+}
+
+.feedback-modal .comment-section small {
+  color: #6c757d;
+  font-size: 0.8rem;
+  text-align: right;
+  display: block;
+  margin-top: 5px;
+}
+
+.feedback-modal .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.feedback-modal .cancel-btn,
+.feedback-modal .submit-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  font-size: 0.95rem;
+}
+
+.feedback-modal .cancel-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.feedback-modal .cancel-btn:hover {
+  background: #5a6268;
+}
+
+.feedback-modal .submit-btn {
+  background: #1B914C;
+  color: white;
+}
+
+.feedback-modal .submit-btn:hover:not(:disabled) {
+  background: #157a3e;
+}
+
+.feedback-modal .submit-btn:disabled {
+  background: #a6c7b3;
+  cursor: not-allowed;
+}
+
+.feedback-modal .error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #f5c6cb;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .feedback-modal {
+    width: 95%;
+    margin: 10px;
+  }
+  
+  .feedback-modal .modal-header,
+  .feedback-modal .modal-content {
+    padding: 20px;
+  }
+  
+  .feedback-modal .star {
+    font-size: 1.8rem;
+  }
+  
+  .feedback-modal .modal-actions {
+    flex-direction: column-reverse;
+  }
+  
+  .feedback-modal .cancel-btn,
+  .feedback-modal .submit-btn {
+    width: 100%;
+  }
+}

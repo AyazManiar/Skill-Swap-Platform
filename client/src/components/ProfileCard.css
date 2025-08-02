@@ -1,0 +1,147 @@
+.ProfileCard{
+    border: 1px solid rgba(144, 144, 144, 0.397);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0px 60px;
+    background-color: rgb(255, 255, 255);
+}
+.ProfileCard .info{
+    display: flex;
+    gap: 30px;
+}
+.ProfileCard .info .profilePhoto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.ProfileCard .info .profilePhoto img{
+    border: 2px solid rgba(81, 81, 81, 0.326);
+    border-radius: 50%;
+    width: 120px;
+}
+.ProfileCard .info .text{
+    padding: 40px 0px;
+}
+.ProfileCard .info .text .name{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.ProfileCard .info .text h3{
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.ProfileCard .info .text .friend-badge{
+    display: inline-block;
+    background-color: rgba(252, 255, 49, 0.112);
+    color: rgb(255, 162, 0);
+    border: 1px solid rgba(188, 188, 188, 0.556);
+    font-weight: 500;
+    border-radius: 12px;
+    font-size: 12px;
+    padding: 3px 7px;
+    cursor: pointer;
+}
+
+.availability {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;;
+    margin-bottom: 8px;
+}
+
+.availability-label {
+    font-weight: 600;
+    color: rgba(29, 29, 29, 0.562);
+    display: block;
+}
+
+.availability-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.availability-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #F3F4F6;
+    color: #4B5563;
+    border: 1px solid #D1D5DB;
+}
+.skills {
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 6px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  text-align: center;
+}
+.skillsOffered, .skillsWanted {
+    font-weight: 600;
+    color: rgba(29, 29, 29, 0.562);
+}
+/* Style for skills offered */
+.skillsOffered .skills {
+    background-color: #DBFCE7;   /* Soft red/pink */
+    color: #1B914C;              /* Deep red text */
+}
+/* Style for skills wanted */
+.skillsWanted .skills {
+    background-color: #DBEAFE;   /* Soft blue */
+    color: #156AEB;              /* Deep blue text */
+}
+
+
+
+.ProfileCard .right{
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end;
+    gap: 10px;
+}
+.ProfileCard .right button{
+    cursor: pointer;
+    margin-top: auto;
+    width: 150px;
+    margin-bottom: -20px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    background-color: #1B914C;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.ProfileCard .right button:hover{
+    filter: brightness(1.2);
+}
+.ProfileCard .right .rating{
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+
+@media (max-width: 1023px) {
+    .ProfileCard .right{
+        flex-direction: row;
+        margin: 0;
+    }
+    .ProfileCard .right button{
+        margin: 0;
+    }
+}

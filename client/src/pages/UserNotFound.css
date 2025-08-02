@@ -1,0 +1,364 @@
+.user-notfound-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 2rem;
+}
+
+.user-notfound-content {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.user-notfound-illustration {
+  position: relative;
+  flex: 1;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.magnifying-glass {
+  position: relative;
+  z-index: 2;
+  animation: search 3s ease-in-out infinite;
+}
+
+.glass-lens {
+  width: 120px;
+  height: 120px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.reflection {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: glint 2s ease-in-out infinite;
+}
+
+.glass-handle {
+  position: absolute;
+  top: 85px;
+  right: -25px;
+  width: 60px;
+  height: 8px;
+  background: #fff;
+  border-radius: 4px;
+  transform: rotate(45deg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.search-area {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  opacity: 0.3;
+}
+
+.empty-profile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.profile-placeholder {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.profile-icon {
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.profile-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.line {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  animation: fade 3s ease-in-out infinite;
+}
+
+.line-1 {
+  width: 60px;
+  animation-delay: 0s;
+}
+
+.line-2 {
+  width: 80px;
+  animation-delay: 0.5s;
+}
+
+.line-3 {
+  width: 45px;
+  animation-delay: 1s;
+}
+
+.floating-dots {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: float-dots 4s ease-in-out infinite;
+}
+
+.dot-1 {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  top: 10%;
+  right: 20%;
+  animation-delay: 0.8s;
+}
+
+.dot-3 {
+  bottom: 30%;
+  left: 15%;
+  animation-delay: 1.6s;
+}
+
+.dot-4 {
+  bottom: 10%;
+  right: 10%;
+  animation-delay: 2.4s;
+}
+
+.dot-5 {
+  top: 50%;
+  left: 5%;
+  animation-delay: 3.2s;
+}
+
+.user-notfound-text {
+  flex: 1;
+  color: #fff;
+  text-align: left;
+}
+
+.user-notfound-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  background: linear-gradient(135deg, #fff 0%, #e8f4f8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+
+.user-notfound-message {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.user-notfound-submessage {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 2.5rem 0;
+  line-height: 1.5;
+}
+
+.user-notfound-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.user-notfound-button {
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.user-notfound-button.primary {
+  background: #fff;
+  color: #667eea;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+}
+
+.user-notfound-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+  background: #f8f9ff;
+}
+
+.user-notfound-button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.user-notfound-button.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.user-notfound-button:active {
+  transform: translateY(0);
+}
+
+/* Animations */
+@keyframes search {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(10px, -10px) rotate(5deg);
+  }
+  50% {
+    transform: translate(-5px, 10px) rotate(-3deg);
+  }
+  75% {
+    transform: translate(8px, 5px) rotate(2deg);
+  }
+}
+
+@keyframes glint {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
+}
+
+@keyframes fade {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes float-dots {
+  0%, 100% {
+    transform: translateY(0px);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-15px);
+    opacity: 0.8;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-notfound-content {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .user-notfound-illustration {
+    height: 250px;
+  }
+  
+  .glass-lens {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .glass-handle {
+    top: 60px;
+    right: -15px;
+    width: 40px;
+    height: 6px;
+  }
+  
+  .user-notfound-title {
+    font-size: 2.5rem;
+  }
+  
+  .user-notfound-text {
+    text-align: center;
+  }
+  
+  .user-notfound-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-notfound-container {
+    padding: 1rem;
+  }
+  
+  .user-notfound-title {
+    font-size: 2rem;
+  }
+  
+  .user-notfound-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,164 @@
+.notfound-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.notfound-content {
+  text-align: center;
+  padding: 2rem;
+  max-width: 600px;
+}
+
+.notfound-graphic {
+  position: relative;
+  height: 200px;
+  margin-bottom: 2rem;
+  margin-top: -70px;
+}
+
+.notfound-planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  background: #ff6b6b;
+  border-radius: 50%;
+  box-shadow: inset -20px -20px 50px #d63031,
+              0 0 50px rgba(255, 107, 107, 0.3);
+  animation: float 6s ease-in-out infinite;
+}
+
+.notfound-crater {
+  position: absolute;
+  background: #d63031;
+  border-radius: 50%;
+}
+
+.notfound-crater:nth-child(1) {
+  width: 30px;
+  height: 30px;
+  top: 25%;
+  left: 25%;
+}
+
+.notfound-crater:nth-child(2) {
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  right: 25%;
+}
+
+.notfound-crater:nth-child(3) {
+  width: 25px;
+  height: 25px;
+  bottom: 25%;
+  left: 40%;
+}
+
+.notfound-astronaut {
+  position: absolute;
+  top: 60%;
+  left: 65%;
+  width: 40px;
+  height: 80px;
+  animation: float 6s ease-in-out infinite, spin 10s linear infinite;
+}
+
+.notfound-astronaut-helmet {
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.notfound-astronaut-body {
+  position: absolute;
+  top: 35px;
+  width: 30px;
+  height: 45px;
+  background: #fff;
+  border-radius: 10px;
+  transform: translateX(5px);
+}
+
+.notfound-title {
+  font-size: 8rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(to right, #fff 20%, #4834d4 40%, #686de0 60%, #fff 80%);
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+}
+
+.notfound-message {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+  color: #fff;
+}
+
+.notfound-submessage {
+  font-size: 1.1rem;
+  color: #a8a8a8;
+  margin-bottom: 2rem;
+}
+
+.notfound-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #4834d4 0%, #686de0 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 15px rgba(104, 109, 224, 0.3);
+}
+
+.notfound-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(104, 109, 224, 0.4);
+}
+
+.notfound-button:active {
+  transform: translateY(0);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
