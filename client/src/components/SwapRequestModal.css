@@ -1,14 +1,14 @@
-.modal-overlay {
+.Swap-request-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 9999;
   animation: fadeIn 0.2s ease-out;
 }
 
@@ -19,11 +19,12 @@
   max-width: 600px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   animation: slideIn 0.3s ease-out;
+  position: relative;
 }
 
-.modal-header {
+.Swap-request-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,14 +32,14 @@
   border-bottom: 1px solid #e9ecef;
 }
 
-.modal-header h2 {
+.Swap-request-modal-header h2 {
   margin: 0;
   font-size: 20px;
   font-weight: 600;
   color: #333;
 }
 
-.close-button {
+.Swap-request-close-button {
   background: none;
   border: none;
   font-size: 24px;
@@ -54,20 +55,20 @@
   transition: all 0.2s ease;
 }
 
-.close-button:hover {
+.Swap-request-close-button:hover {
   background-color: #f5f5f5;
   color: #333;
 }
 
-.modal-body {
+.Swap-request-modal-body {
   padding: 24px;
 }
 
-.skills-section {
+.Swap-request-skills-section {
   margin-bottom: 24px;
 }
 
-.skills-section label {
+.Swap-request-skills-section label {
   display: block;
   font-weight: 600;
   color: #333;
@@ -75,13 +76,13 @@
   font-size: 14px;
 }
 
-.skill-input-container {
+.Swap-request-skill-input-container {
   display: flex;
   gap: 8px;
   margin-bottom: 12px;
 }
 
-.skill-input {
+.Swap-request-skill-input {
   flex: 1;
   padding: 10px 12px;
   border: 1px solid #ddd;
@@ -90,13 +91,13 @@
   transition: border-color 0.2s ease;
 }
 
-.skill-input:focus {
+.Swap-request-skill-input:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
 }
 
-.add-skill-btn {
+.Swap-request-add-skill-btn {
   padding: 10px 16px;
   background-color: #007bff;
   color: white;
@@ -108,11 +109,11 @@
   transition: background-color 0.2s ease;
 }
 
-.add-skill-btn:hover {
+.Swap-request-add-skill-btn:hover {
   background-color: #0056b3;
 }
 
-.skills-tags {
+.Swap-request-skills-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -123,7 +124,7 @@
   background-color: #f8f9fa;
 }
 
-.skill-tag {
+.Swap-request-skill-tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -135,19 +136,19 @@
   animation: fadeInScale 0.2s ease-out;
 }
 
-.skill-tag.offered {
+.Swap-request-skill-tag.offered {
   background-color: #e7f3ff;
   color: #0066cc;
   border-color: #b3d9ff;
 }
 
-.skill-tag.requested {
+.Swap-request-skill-tag.requested {
   background-color: #fff2e7;
   color: #cc6600;
   border-color: #ffccb3;
 }
 
-.remove-skill {
+.Swap-request-remove-skill {
   background: none;
   border: none;
   color: inherit;
@@ -159,15 +160,15 @@
   transition: opacity 0.2s ease;
 }
 
-.remove-skill:hover {
+.Swap-request-remove-skill:hover {
   opacity: 1;
 }
 
-.note-section {
+.Swap-request-note-section {
   margin-bottom: 20px;
 }
 
-.note-textarea {
+.Swap-request-note-textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #ddd;
@@ -179,13 +180,13 @@
   transition: border-color 0.2s ease;
 }
 
-.note-textarea:focus {
+.Swap-request-note-textarea:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
 }
 
-.modal-footer {
+.Swap-request-modal-footer {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
@@ -195,7 +196,7 @@
   border-radius: 0 0 12px 12px;
 }
 
-.cancel-btn, .send-btn {
+.Swap-request-cancel-btn, .Swap-request-send-btn {
   padding: 10px 20px;
   border-radius: 6px;
   font-size: 14px;
@@ -205,25 +206,25 @@
   border: none;
 }
 
-.cancel-btn {
+.Swap-request-cancel-btn {
   background-color: #6c757d;
   color: white;
 }
 
-.cancel-btn:hover:not(:disabled) {
+.Swap-request-cancel-btn:hover:not(:disabled) {
   background-color: #5a6268;
 }
 
-.send-btn {
+.Swap-request-send-btn {
   background-color: #28a745;
   color: white;
 }
 
-.send-btn:hover:not(:disabled) {
+.Swap-request-send-btn:hover:not(:disabled) {
   background-color: #218838;
 }
 
-.send-btn:disabled {
+.Swap-request-send-btn:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
 }
@@ -262,28 +263,28 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .modal-content {
+  .Swap-request-modal-content {
     width: 95%;
     margin: 10px;
   }
   
-  .modal-header {
+  .Swap-request-modal-header {
     padding: 16px 20px;
   }
   
-  .modal-body {
+  .Swap-request-modal-body {
     padding: 20px;
   }
   
-  .modal-footer {
+  .Swap-request-modal-footer {
     padding: 16px 20px;
   }
   
-  .skill-input-container {
+  .Swap-request-skill-input-container {
     flex-direction: column;
   }
   
-  .add-skill-btn {
+  .Swap-request-add-skill-btn {
     width: 100%;
   }
 }

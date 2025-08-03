@@ -180,7 +180,11 @@ export const getAllSwapRequests = async (req, res) => {
             $or: [{ fromUser: userId }, { toUser: userId }]
         }).populate('fromUser', 'username email')
           .populate('toUser', 'username email');
-        res.status(200).json(swapRequests);
+        
+        // Filter out requests with missing user data (in case users were deleted)
+        const validSwapRequests = swapRequests.filter(req => req.fromUser && req.toUser);
+        
+        res.status(200).json(validSwapRequests);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching swap requests', error });
     }

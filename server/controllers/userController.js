@@ -25,6 +25,8 @@ export const updateUserProfile = async (req, res) => {
     // Getting userId from request body
     const { userId } = req.body;
     // Authenticating User, req.user.id: Getting userId from authMiddleware
+    console.log("Updateprofile, UserId:", userId)
+    console.log("Req user id: ", req.user.id)
     if(userId != req.user.id){
         return res.status(403).json({ message: 'Forbidden: You are not allowed to update this profile.' });
     }

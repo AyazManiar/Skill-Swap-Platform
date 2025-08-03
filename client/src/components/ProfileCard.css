@@ -8,9 +8,48 @@
     padding: 0px 60px;
     background-color: rgb(255, 255, 255);
 }
+
+/* Responsive ProfileCard */
+@media (max-width: 1024px) {
+    .ProfileCard {
+        padding: 0px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ProfileCard {
+        padding: 20px;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ProfileCard {
+        padding: 15px;
+        gap: 15px;
+    }
+}
 .ProfileCard .info{
     display: flex;
     gap: 30px;
+}
+
+/* Responsive Profile Info */
+@media (max-width: 768px) {
+    .ProfileCard .info {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .ProfileCard .info {
+        gap: 15px;
+    }
 }
 .ProfileCard .info .profilePhoto{
     display: flex;
@@ -23,14 +62,51 @@
     border-radius: 50%;
     width: 120px;
 }
+
+/* Responsive Profile Photo */
+@media (max-width: 768px) {
+    .ProfileCard .info .profilePhoto img {
+        width: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ProfileCard .info .profilePhoto img {
+        width: 80px;
+    }
+}
 .ProfileCard .info .text{
     padding: 40px 0px;
 }
+
+/* Responsive Text Section */
+@media (max-width: 768px) {
+    .ProfileCard .info .text {
+        padding: 0;
+        width: 100%;
+    }
+}
+
 .ProfileCard .info .text .name{
     display: flex;
     gap: 15px;
     align-items: center;
     margin-bottom: 15px;
+}
+
+/* Responsive Name Section */
+@media (max-width: 768px) {
+    .ProfileCard .info .text .name {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .ProfileCard .info .text .name {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 .ProfileCard .info .text h3{
     font-size: 18px;
@@ -57,6 +133,21 @@
     margin-bottom: 8px;
 }
 
+/* Responsive Availability */
+@media (max-width: 768px) {
+    .availability {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .availability {
+        gap: 6px;
+    }
+}
+
 .availability-label {
     font-weight: 600;
     color: rgba(29, 29, 29, 0.562);
@@ -69,6 +160,13 @@
     gap: 6px;
 }
 
+/* Responsive Availability Tags */
+@media (max-width: 768px) {
+    .availability-tags {
+        justify-content: center;
+    }
+}
+
 .availability-tag {
     display: inline-block;
     padding: 4px 10px;
@@ -79,6 +177,19 @@
     color: #4B5563;
     border: 1px solid #D1D5DB;
 }
+.skillsOffered, .skillsWanted {
+    font-weight: 600;
+    color: rgba(29, 29, 29, 0.562);
+}
+
+/* Responsive Skills Sections */
+@media (max-width: 768px) {
+    .skillsOffered, .skillsWanted {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+
 .skills {
   display: inline-block;
   padding: 4px 10px;
@@ -90,9 +201,14 @@
   cursor: pointer;
   text-align: center;
 }
-.skillsOffered, .skillsWanted {
-    font-weight: 600;
-    color: rgba(29, 29, 29, 0.562);
+
+/* Responsive Skills */
+@media (max-width: 480px) {
+    .skills {
+        font-size: 12px;
+        padding: 3px 8px;
+        margin: 4px;
+    }
 }
 /* Style for skills offered */
 .skillsOffered .skills {
@@ -113,6 +229,25 @@
     align-items:flex-end;
     gap: 10px;
 }
+
+/* Enhanced Responsive Right Section */
+@media (max-width: 768px) {
+    .ProfileCard .right {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .ProfileCard .right {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
 .ProfileCard .right button{
     cursor: pointer;
     margin-top: auto;
@@ -127,21 +262,44 @@
     font-size: 14px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+/* Enhanced Responsive Button */
+@media (max-width: 768px) {
+    .ProfileCard .right button {
+        margin: 0;
+        width: auto;
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ProfileCard .right button {
+        width: 100%;
+        max-width: 200px;
+        padding: 14px 20px;
+    }
+}
+
 .ProfileCard .right button:hover{
     filter: brightness(1.2);
 }
+
 .ProfileCard .right .rating{
     margin-top: auto;
     margin-bottom: 20px;
 }
 
-
-@media (max-width: 1023px) {
-    .ProfileCard .right{
-        flex-direction: row;
+/* Enhanced Responsive Rating */
+@media (max-width: 768px) {
+    .ProfileCard .right .rating {
         margin: 0;
+        font-size: 16px;
     }
-    .ProfileCard .right button{
-        margin: 0;
+}
+
+@media (max-width: 480px) {
+    .ProfileCard .right .rating {
+        font-size: 14px;
     }
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./AvailabilityFilter.css";
 
 const availabilityOptions = [
@@ -12,10 +12,26 @@ const availabilityOptions = [
 const AvailabilityFilter = ({ availability, updateAvailability }) => {
   const [availabilitySearch, setAvailabilitySearch] = useState("");
   const [isAvailabilityOpen, setIsAvailabilityOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  const handleAvailabilityClick = () => {
-    setIsAvailabilityOpen(!isAvailabilityOpen);
-  };
+  // Handle clicks outside the dropdown to close it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsAvailabilityOpen(false);
+      }
+    };
+
+    // Add event listener when dropdown is open
+    if (isAvailabilityOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Cleanup event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isAvailabilityOpen]);
 
   const handleAvailabilitySelect = async (option) => {
     if (!availability.includes(option)) {
@@ -38,7 +54,7 @@ const AvailabilityFilter = ({ availability, updateAvailability }) => {
   );
 
   return (
-    <div className="availability-container" onClick={() => {setIsAvailabilityOpen(false)}}>
+    <div className="availability-container" ref={dropdownRef}>
       <div className="availability-badges">
         {availability.map((item, index) => (
           <div key={index} className={`availability-badge ${item === 'Always' ? 'permanent' : ''}`}>
@@ -57,10 +73,7 @@ const AvailabilityFilter = ({ availability, updateAvailability }) => {
           placeholder="Add availability..."
           value={availabilitySearch}
           onChange={(e) => setAvailabilitySearch(e.target.value)}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsAvailabilityOpen(true);
-          }}
+          onClick={() => setIsAvailabilityOpen(true)}
         />
       </div>
       {isAvailabilityOpen && filteredOptions.length > 0 && (

@@ -1,5 +1,6 @@
 import './SwapRequestModal.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { toastSuccess, toastError } from "../lib/useToast"
 
 const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onSendRequest }) => {
@@ -9,6 +10,16 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
   const [requestedSkills, setRequestedSkills] = useState([]);
   const [note, setNote] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isOpen]);
 
   const addOfferedSkill = () => {
     if (offeredInput.trim() && !offeredSkills.includes(offeredInput.trim())) {
@@ -82,41 +93,41 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
 
   if (!isOpen) return null;
 
-  return (
-    <div className="Swap-request-modal-overlay">
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
+  return createPortal(
+    <div className="Swap-request-modal-overlay" onClick={handleClose}>
+      <div className="Swap-request-modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="Swap-request-modal-header">
           <h2>Send Swap Request to {recipientUsername}</h2>
-          <button className="close-button" onClick={handleClose}>×</button>
+          <button className="Swap-request-close-button" onClick={handleClose}>×</button>
         </div>
 
-        <div className="modal-body">
-          <div className="skills-section">
+        <div className="Swap-request-modal-body">
+          <div className="Swap-request-skills-section">
             <label>Skills I Can Offer:</label>
-            <div className="skill-input-container">
+            <div className="Swap-request-skill-input-container">
               <input
                 type="text"
                 value={offeredInput}
                 onChange={(e) => setOfferedInput(e.target.value)}
                 onKeyDown={(e) => handleKeyPress(e, 'offered')}
                 placeholder="Type a skill and press Enter"
-                className="skill-input"
+                className="Swap-request-skill-input"
               />
               <button 
                 type="button" 
                 onClick={addOfferedSkill}
-                className="add-skill-btn"
+                className="Swap-request-add-skill-btn"
               >
                 Add
               </button>
             </div>
-            <div className="skills-tags">
+            <div className="Swap-request-skills-tags">
               {offeredSkills.map((skill, index) => (
-                <span key={index} className="skill-tag offered">
+                <span key={index} className="Swap-request-skill-tag offered">
                   {skill}
                   <button 
                     onClick={() => removeOfferedSkill(skill)}
-                    className="remove-skill"
+                    className="Swap-request-remove-skill"
                   >
                     ×
                   </button>
@@ -125,32 +136,32 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
             </div>
           </div>
 
-          <div className="skills-section">
+          <div className="Swap-request-skills-section">
             <label>Skills I Want to Learn:</label>
-            <div className="skill-input-container">
+            <div className="Swap-request-skill-input-container">
               <input
                 type="text"
                 value={requestedInput}
                 onChange={(e) => setRequestedInput(e.target.value)}
                 onKeyDown={(e) => handleKeyPress(e, 'requested')}
                 placeholder="Type a skill and press Enter"
-                className="skill-input"
+                className="Swap-request-skill-input"
               />
               <button 
                 type="button" 
                 onClick={addRequestedSkill}
-                className="add-skill-btn"
+                className="Swap-request-add-skill-btn"
               >
                 Add
               </button>
             </div>
-            <div className="skills-tags">
+            <div className="Swap-request-skills-tags">
               {requestedSkills.map((skill, index) => (
-                <span key={index} className="skill-tag requested">
+                <span key={index} className="Swap-request-skill-tag requested">
                   {skill}
                   <button 
                     onClick={() => removeRequestedSkill(skill)}
-                    className="remove-skill"
+                    className="Swap-request-remove-skill"
                   >
                     ×
                   </button>
@@ -159,28 +170,28 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
             </div>
           </div>
 
-          <div className="note-section">
+          <div className="Swap-request-note-section">
             <label>Additional Note (Optional):</label>
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="Add any additional message or details..."
-              className="note-textarea"
+              className="Swap-request-note-textarea"
               rows={3}
             />
           </div>
         </div>
 
-        <div className="modal-footer">
+        <div className="Swap-request-modal-footer">
           <button 
-            className="cancel-btn" 
+            className="Swap-request-cancel-btn" 
             onClick={handleClose}
             disabled={isSubmitting}
           >
             Cancel
           </button>
           <button 
-            className="send-btn" 
+            className="Swap-request-send-btn" 
             onClick={handleSubmit}
             disabled={isSubmitting || offeredSkills.length === 0 || requestedSkills.length === 0}
           >
@@ -188,7 +199,8 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

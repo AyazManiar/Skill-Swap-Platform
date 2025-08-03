@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import './EditProfileModal.css';
 import { AuthContext } from '../contexts/AuthContext';
 
@@ -81,7 +81,7 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
         },
         credentials: 'include',
         body: JSON.stringify({
-          userId: auth.id,
+          userId: auth.userId,
           ...formData
         }),
       });

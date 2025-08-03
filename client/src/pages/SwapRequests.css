@@ -5,6 +5,25 @@
   background-color: #f8f9fa;
 }
 
+/* Responsive Container */
+@media (max-width: 1024px) {
+  .SwapRequests .swap-requests-container {
+    padding: 20px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .SwapRequests .swap-requests-container {
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .swap-requests-container {
+    padding: 10px 15px;
+  }
+}
+
 .SwapRequests .page-header {
   display: flex;
   justify-content: space-between;
@@ -14,11 +33,42 @@
   border-bottom: 2px solid #e9ecef;
 }
 
+/* Responsive Page Header */
+@media (max-width: 768px) {
+  .SwapRequests .page-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .page-header {
+    margin-bottom: 15px;
+    padding: 10px 0;
+  }
+}
+
 .SwapRequests .page-header h1 {
   margin: 0;
   font-size: 28px;
   font-weight: 600;
   color: #333;
+}
+
+/* Responsive Header Title */
+@media (max-width: 768px) {
+  .SwapRequests .page-header h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .page-header h1 {
+    font-size: 20px;
+  }
 }
 
 .SwapRequests .requests-summary {
@@ -41,6 +91,20 @@
   border-bottom: 1px solid #e9ecef;
 }
 
+/* Responsive Tabs */
+@media (max-width: 768px) {
+  .SwapRequests .tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .SwapRequests .tabs {
+    flex-wrap: wrap;
+  }
+}
+
 .SwapRequests .tab {
   width: 10vw;
   min-width: fit-content;
@@ -53,6 +117,31 @@
   color: #666;
   transition: all 0.2s ease;
   position: relative;
+}
+
+/* Responsive Tab */
+@media (max-width: 768px) {
+  .SwapRequests .tab {
+    width: auto;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .SwapRequests .tab {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .tab {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
 }
 
 .SwapRequests .tab:hover {
@@ -71,6 +160,21 @@
   min-height: 400px;
 }
 
+/* Responsive Tab Content */
+@media (max-width: 768px) {
+  .SwapRequests .tab-content {
+    padding: 15px;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .tab-content {
+    padding: 10px;
+    min-height: 250px;
+  }
+}
+
 .SwapRequests .requests-list {
   display: flex;
   flex-direction: column;
@@ -86,6 +190,20 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Responsive Request Card */
+@media (max-width: 768px) {
+  .SwapRequests .swap-request-card {
+    padding: 15px;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .swap-request-card {
+    padding: 12px;
+  }
+}
+
 .SwapRequests .swap-request-card:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
@@ -99,10 +217,44 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
+/* Responsive Request Header */
+@media (max-width: 768px) {
+  .SwapRequests .request-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .request-header {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 .SwapRequests .user-info {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+/* Responsive User Info */
+@media (max-width: 768px) {
+  .SwapRequests .user-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .user-info {
+    gap: 8px;
+  }
 }
 
 .SwapRequests .user-info h3 {
@@ -110,6 +262,19 @@
   font-size: 20px;
   font-weight: 600;
   color: #333;
+}
+
+/* Responsive User Name */
+@media (max-width: 768px) {
+  .SwapRequests .user-info h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .user-info h3 {
+    font-size: 16px;
+  }
 }
 
 .SwapRequests .status-badge {
@@ -164,6 +329,14 @@
   align-items: flex-end;
 }
 
+/* Responsive Request Meta */
+@media (max-width: 768px) {
+  .SwapRequests .request-meta {
+    align-items: flex-start;
+    width: 100%;
+  }
+}
+
 .SwapRequests .direction-info {
   font-size: 14px;
   color: #495057;
@@ -171,6 +344,14 @@
   padding: 4px 8px;
   border-radius: 4px;
   border: 1px solid #dee2e6;
+}
+
+/* Responsive Direction Info */
+@media (max-width: 480px) {
+  .SwapRequests .direction-info {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
 }
 
 .SwapRequests .direction-info strong {
@@ -181,6 +362,13 @@
   font-size: 13px;
   color: #6c757d;
   font-style: italic;
+}
+
+/* Responsive Request Date */
+@media (max-width: 480px) {
+  .SwapRequests .request-date {
+    font-size: 11px;
+  }
 }
 
 .SwapRequests .request-body {
@@ -194,11 +382,42 @@
   margin-bottom: 20px;
 }
 
+/* Responsive Skills Section */
+@media (max-width: 768px) {
+  .SwapRequests .skills-section {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .skills-section {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 .SwapRequests .offered-skills,
 .SwapRequests .requested-skills {
   background-color: #f8f9fa;
   padding: 15px;
   border-radius: 8px;
+}
+
+/* Responsive Skills Containers */
+@media (max-width: 768px) {
+  .SwapRequests .offered-skills,
+  .SwapRequests .requested-skills {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .offered-skills,
+  .SwapRequests .requested-skills {
+    padding: 10px;
+  }
 }
 
 .SwapRequests .offered-skills h4,
@@ -215,12 +434,27 @@
   gap: 8px;
 }
 
+/* Responsive Skills Tags */
+@media (max-width: 480px) {
+  .SwapRequests .skills-tags {
+    gap: 6px;
+  }
+}
+
 .SwapRequests .skill-tag {
   padding: 6px 12px;
   border-radius: 16px;
   font-size: 13px;
   font-weight: 500;
   border: 1px solid;
+}
+
+/* Responsive Skill Tag */
+@media (max-width: 480px) {
+  .SwapRequests .skill-tag {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
 }
 
 .SwapRequests .skill-tag.offered {
@@ -242,6 +476,19 @@
   border-left: 4px solid #007bff;
 }
 
+/* Responsive Request Note */
+@media (max-width: 768px) {
+  .SwapRequests .request-note {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .request-note {
+    padding: 10px;
+  }
+}
+
 .SwapRequests .request-note h4 {
   margin: 0 0 8px 0;
   font-size: 14px;
@@ -261,6 +508,22 @@
   justify-content: flex-end;
 }
 
+/* Responsive Request Actions */
+@media (max-width: 768px) {
+  .SwapRequests .request-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .request-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
 .SwapRequests .request-actions button {
   padding: 8px 16px;
   border-radius: 6px;
@@ -269,6 +532,23 @@
   font-size: 14px;
   font-weight: 500;
   transition: all 0.2s ease;
+}
+
+/* Responsive Action Buttons */
+@media (max-width: 768px) {
+  .SwapRequests .request-actions button {
+    padding: 10px 18px;
+    font-size: 14px;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .request-actions button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+  }
 }
 
 .SwapRequests .accept-btn {
@@ -313,13 +593,42 @@
   align-items: center;
   justify-content: center;
 }
+
+/* Responsive Status Sections */
+@media (max-width: 768px) {
+  .SwapRequests .pending-status,
+  .SwapRequests .completion-status {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
+
 .SwapRequests .pending-status{
   gap: 12px;
 }
+
+/* Responsive Pending Status */
+@media (max-width: 768px) {
+  .SwapRequests .pending-status {
+    gap: 8px;
+  }
+}
+
 .SwapRequests .waiting-text, .SwapRequests .cancel-request {
   font-size: 14px;
   padding: 8px 12px;
   border-radius: 10px;
+}
+
+/* Responsive Status Text */
+@media (max-width: 480px) {
+  .SwapRequests .waiting-text, .SwapRequests .cancel-request {
+    font-size: 13px;
+    padding: 10px 14px;
+    width: 100%;
+    text-align: center;
+  }
 }
 .SwapRequests .waiting-text {
   font-style: italic;
@@ -369,6 +678,13 @@
   margin-top: 10px;
 }
 
+/* Responsive Feedback Actions */
+@media (max-width: 480px) {
+  .SwapRequests .feedback-actions {
+    margin-top: 15px;
+  }
+}
+
 .SwapRequests .give-feedback-btn,
 .SwapRequests .view-feedback-btn {
   padding: 10px 20px;
@@ -378,6 +694,24 @@
   font-weight: 600;
   font-size: 14px;
   transition: all 0.2s ease;
+}
+
+/* Responsive Feedback Buttons */
+@media (max-width: 768px) {
+  .SwapRequests .give-feedback-btn,
+  .SwapRequests .view-feedback-btn {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .give-feedback-btn,
+  .SwapRequests .view-feedback-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px;
+  }
 }
 
 .SwapRequests .give-feedback-btn {
@@ -400,43 +734,48 @@
   transform: translateY(-1px);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .SwapRequests .swap-requests-container {
-    padding: 10px;
-  }
-  
-  .SwapRequests .page-header {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-  }
-  
-  .SwapRequests .tabs {
-    flex-direction: column;
-  }
-  
+/* Enhanced Responsive Design */
+@media (max-width: 1200px) {
   .SwapRequests .tab {
-    padding: 12px 15px;
+    width: 12vw;
+  }
+}
+
+@media (max-width: 992px) {
+  .SwapRequests .tab {
+    width: 15vw;
+  }
+}
+
+/* Loading and Error States Responsive */
+@media (max-width: 768px) {
+  .SwapRequests .no-requests {
+    padding: 40px 15px;
   }
   
-  .SwapRequests .skills-section {
-    grid-template-columns: 1fr;
-    gap: 15px;
+  .SwapRequests .no-requests p {
+    font-size: 16px;
   }
   
-  .SwapRequests .request-header {
-    flex-direction: column;
-    gap: 10px;
-    align-items: flex-start;
+  .SwapRequests .loading,
+  .SwapRequests .error {
+    padding: 40px 15px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SwapRequests .no-requests {
+    padding: 30px 10px;
   }
   
-  .SwapRequests .request-actions {
-    justify-content: center;
-    flex-wrap: wrap;
+  .SwapRequests .no-requests p {
+    font-size: 14px;
   }
   
-  .SwapRequests .swap-request-card {
-    padding: 15px;
+  .SwapRequests .loading,
+  .SwapRequests .error {
+    padding: 30px 10px;
+    font-size: 14px;
   }
 }

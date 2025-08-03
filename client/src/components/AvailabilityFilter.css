@@ -6,11 +6,42 @@
     gap: 20px;
 }
 
+/* Responsive Availability Container */
+@media (max-width: 768px) {
+    .availability-container {
+        min-width: auto;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .availability-container {
+        gap: 8px;
+    }
+}
+
 .availability-badges {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     overflow-y: auto;
+}
+
+/* Responsive Availability Badges */
+@media (max-width: 768px) {
+    .availability-badges {
+        justify-content: center;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .availability-badges {
+        gap: 4px;
+    }
 }
 
 .availability-badge {
@@ -24,6 +55,15 @@
     font-size: 14px;
     font-weight: 500;
     transition: all 0.2s ease;
+}
+
+/* Responsive Availability Badge */
+@media (max-width: 480px) {
+    .availability-badge {
+        padding: 4px 10px;
+        font-size: 12px;
+        gap: 4px;
+    }
 }
 
 .availability-badge.permanent {

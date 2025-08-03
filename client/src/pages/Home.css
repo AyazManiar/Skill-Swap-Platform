@@ -13,6 +13,23 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+/* Responsive Navbar */
+@media (max-width: 768px) {
+    .Home .Navbar {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .Home .Navbar {
+        padding: 10px 15px;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
 .Home .login-button {
     display: flex;
     align-items: center;
@@ -44,12 +61,47 @@
     padding-right: 35px;
     gap: 20px;
 }
+
+/* Responsive Search Section */
+@media (max-width: 768px) {
+    .Home .search {
+        flex-direction: column;
+        padding-right: 20px;
+        padding-left: 20px;
+        gap: 15px;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 480px) {
+    .Home .search {
+        padding-right: 15px;
+        padding-left: 15px;
+        gap: 10px;
+    }
+}
 .Home .availability-container {
     position: relative;
     min-width: 200px;
     display: flex;
     justify-content: flex-end;
     gap: 20px;
+}
+
+/* Responsive Availability Container */
+@media (max-width: 768px) {
+    .Home .availability-container {
+        min-width: auto;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .Home .availability-container {
+        gap: 8px;
+    }
 }
 
 .Home .availability-badges {
@@ -136,9 +188,34 @@
     padding: 3px 5px 3px 10px;
     background-color: white;
 }
+
+/* Responsive Search Bar */
+@media (max-width: 768px) {
+    .Home .search-bar-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .Home .search-bar-container {
+        padding: 8px 10px;
+    }
+}
+
 .Home .search-bar-container input{
     border: none;
     outline: none;
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+}
+
+@media (max-width: 480px) {
+    .Home .search-bar-container input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
 }
 .Home .search-bar-container img{
     cursor: pointer;
@@ -147,9 +224,36 @@
 .Home .content{
     padding: 20px;
 }
+
 .Home .profileList{
     padding: 30px 80px;
     display: flex;
     flex-direction: column;
     gap: 50px;
+}
+
+/* Responsive Profile List */
+@media (max-width: 1024px) {
+    .Home .profileList {
+        padding: 20px 40px;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .Home .profileList {
+        padding: 15px 20px;
+        gap: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .Home .profileList {
+        padding: 10px 15px;
+        gap: 20px;
+    }
+    
+    .Home .content {
+        padding: 10px;
+    }
 }

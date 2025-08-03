@@ -37,11 +37,11 @@ const SwapRequests = () => {
   );
   
   const outgoingRequests = swapRequests.filter(req => 
-    req.status === 'pending' && req.fromUser._id === auth.userId
+    req.status === 'pending' && req.fromUser?._id === auth?.userId
   );
   
   const incomingRequests = swapRequests.filter(req => 
-    req.status === 'pending' && req.toUser._id === auth.userId
+    req.status === 'pending' && req.toUser?._id === auth?.userId
   );
   
   const completedRequests = swapRequests.filter(req => 
@@ -68,7 +68,9 @@ const SwapRequests = () => {
       }
 
       const data = await response.json();
-      setSwapRequests(data);
+      // Filter out invalid requests with missing user data
+      const validRequests = data.filter(req => req.fromUser && req.toUser);
+      setSwapRequests(validRequests);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -264,14 +266,20 @@ const SwapRequests = () => {
   };
 
   const renderSwapRequestCard = (request) => {
-    const isFromCurrentUser = request.fromUser._id === auth.userId;
+    // Add null checks for user objects
+    if (!request.fromUser || !request.toUser) {
+      console.warn('Invalid swap request: missing user data', request);
+      return null;
+    }
+    
+    const isFromCurrentUser = request.fromUser._id === auth?.userId;
     const otherUser = isFromCurrentUser ? request.toUser : request.fromUser;
 
     return (
       <div key={request._id} className="swap-request-card">
         <div className="request-header">
           <div className="user-info">
-            <h3>{otherUser.username}</h3>
+            <h3>{otherUser?.username || 'Unknown User'}</h3>
             <span className={`status-badge ${request.status}`}>
               {request.status.replace('_', ' ').toUpperCase()}
             </span>
@@ -279,9 +287,9 @@ const SwapRequests = () => {
           <div className="request-meta">
             <div className="request-direction">
               {isFromCurrentUser ? (
-                <span className="direction-info">Sent to: <strong>{request.toUser.username}</strong></span>
+                <span className="direction-info">Sent to: <strong>{request.toUser?.username || 'Unknown User'}</strong></span>
               ) : (
-                <span className="direction-info">Received from: <strong>{request.fromUser.username}</strong></span>
+                <span className="direction-info">Received from: <strong>{request.fromUser?.username || 'Unknown User'}</strong></span>
               )}
             </div>
             <div className="request-date">
@@ -360,7 +368,7 @@ const SwapRequests = () => {
           )}
 
           {request.status === 'completion_requested' && 
-           request.completion_request_received_by === auth.userId && (
+           request.completion_request_received_by === auth?.userId && (
             <button 
               className="confirm-btn"
               onClick={() => handleConfirmCompletion(request._id)}
@@ -370,7 +378,7 @@ const SwapRequests = () => {
           )}
 
           {request.status === 'completion_requested' && 
-           request.completion_request_sent_by === auth.userId && (
+           request.completion_request_sent_by === auth?.userId && (
             <div className="completion-status">
               <span className="waiting-text">Waiting for completion confirmation...</span>
             </div>
@@ -379,7 +387,8 @@ const SwapRequests = () => {
           {request.status === 'completed' && (
             <div className="feedback-actions">
               {(() => {
-                const isFromCurrentUser = request.fromUser._id === auth.userId;
+                if (!request.fromUser || !request.toUser) return null;
+                const isFromCurrentUser = request.fromUser._id === auth?.userId;
                 const otherUser = isFromCurrentUser ? request.toUser : request.fromUser;
                 const status = feedbackStatus[request._id];
                 
@@ -440,7 +449,7 @@ const SwapRequests = () => {
 
     return (
       <div className="requests-list">
-        {requestsToShow.map(renderSwapRequestCard)}
+        {requestsToShow.map(renderSwapRequestCard).filter(Boolean)}
       </div>
     );
   };
@@ -462,6 +471,17 @@ const SwapRequests = () => {
         <Navbar />
         <div className="swap-requests-container">
           <div className="error">Error: {error}</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!auth?.userId) {
+    return (
+      <div className="SwapRequests">
+        <Navbar />
+        <div className="swap-requests-container">
+          <div className="error">Authentication required</div>
         </div>
       </div>
     );
