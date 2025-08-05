@@ -56,12 +56,13 @@ const Navbar = () => {
       <h1>Skill Swap</h1>
       <div className="right">
         <div className="nav-links">
-					{location.pathname === '/' && (
-						<Link to="/swap-requests">Swap Requests</Link>
-					)}
-					{location.pathname === '/swap-requests' && (
-						<Link to="/">Home</Link>
-					)}
+          {
+            location.pathname === '/' ? (
+              <Link to="/swap-requests">Swap Requests</Link>
+            ) : (
+              <Link to="/">Home</Link>
+            )
+          }
         </div>
         <div className="login-button">
           {auth.isLoggedIn ? (

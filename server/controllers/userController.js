@@ -184,6 +184,38 @@ export const getFriendsProfile = async (req, res) => {
     }
 }
 
+// GET /api/users/friend-requests/incoming
+export const getIncomingFriendRequests = async (req, res) => {
+    const userId = req.user.id;
+    try {
+        const user = await User.findById(userId).select('friendsRequestsReceived');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const incomingRequests = await User.find({ _id: { $in: user.friendsRequestsReceived } })
+            .select('username profilePicture availability skills skillsWanted averageRating reviewCount createdAt');
+        return res.status(200).json(incomingRequests);
+    } catch (error) {
+        return res.status(500).json({ message: 'Server Error' });
+    }
+}
+
+// GET /api/users/friend-requests/outgoing
+export const getOutgoingFriendRequests = async (req, res) => {
+    const userId = req.user.id;
+    try {
+        const user = await User.findById(userId).select('friendsRequestsSent');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const outgoingRequests = await User.find({ _id: { $in: user.friendsRequestsSent } })
+            .select('username profilePicture availability skills skillsWanted averageRating reviewCount createdAt');
+        return res.status(200).json(outgoingRequests);
+    } catch (error) {
+        return res.status(500).json({ message: 'Server Error' });
+    }
+}
+
 // POST api/users/sendFriendRequest
 export const sendFriendRequest = async (req, res) => {
     const { targetId } = req.body
@@ -253,6 +285,30 @@ export const rejectFriendRequest = async (req, res) => {
             $pull: { friendsRequestsSent: userId }
         });
         return res.status(200).json({ message: 'Friend request rejected successfully.' });
+    } catch (error) {
+        return res.status(500).json({ message: 'Server Error' });
+    }
+}
+
+// POST api/users/cancelFriendRequest
+export const cancelFriendRequest = async (req, res) => {
+    const { targetId } = req.body
+    const userId = req.user.id;
+
+    if(targetId === userId) {
+        return res.status(400).json({ message: 'You cannot cancel a friend request to yourself.' });
+    }
+
+    try {
+        // Remove from sent requests (user perspective) and received requests (target perspective)
+        await User.findByIdAndUpdate(userId, {
+            $pull: { friendsRequestsSent: targetId }
+        });
+
+        await User.findByIdAndUpdate(targetId, {
+            $pull: { friendsRequestsReceived: userId }
+        });
+        return res.status(200).json({ message: 'Friend request cancelled successfully.' });
     } catch (error) {
         return res.status(500).json({ message: 'Server Error' });
     }

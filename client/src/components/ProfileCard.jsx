@@ -54,6 +54,26 @@ const ProfileCard = (props) => {
     setIsModalOpen(false);
   };
 
+  const sendFriendRequest = async () => {
+    const res = await fetch(baseURL+"/api/users/sendFriendRequest", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        targetId: userId
+      })
+    })
+    const data = await res.json();
+    if(res.ok){
+      toastSuccess(data.message);
+    } else {
+      toastError('Error: '+data.message)
+    }
+
+  }
+
   return (
     <div className="ProfileCard">
       <div className="info">
@@ -64,9 +84,14 @@ const ProfileCard = (props) => {
         <div className="text">
           <div className="name">
             <h3 onClick={() => navigate(`/profile/${encodeURIComponent(username)}`)}>{username}</h3>
-            <div className="friend-badge">
-              {isFriend ? "Friend" : "Add Friend"}
-            </div>
+            {isFriend ? 
+            <>
+              <div className="friend-badge">Friend</div>
+            </> :
+            <>
+              <div className="friend-badge" onClick={sendFriendRequest}>Add Friend</div>
+            </>
+            }
             {/* Friend request feature to be implemented */}
           </div>
           <div className="availability">
