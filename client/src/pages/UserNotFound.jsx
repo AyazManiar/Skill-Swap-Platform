@@ -1,9 +1,7 @@
 import './UserNotFound.css';
 import { useNavigate } from 'react-router';
-
 const UserNotFound = () => {
   const navigate = useNavigate();
-
   return (
     <div className="user-notfound-container">
       <div className="user-notfound-content">
@@ -34,7 +32,6 @@ const UserNotFound = () => {
             </div>
           </div>
         </div>
-        
         <div className="user-notfound-text">
           <h1 className="user-notfound-title">User Not Found</h1>
           <p className="user-notfound-message">
@@ -43,7 +40,6 @@ const UserNotFound = () => {
           <p className="user-notfound-submessage">
             The profile might have been removed, deactivated, or the username is incorrect.
           </p>
-          
           <div className="user-notfound-actions">
             <button 
               onClick={() => navigate('/')} 
@@ -63,5 +59,4 @@ const UserNotFound = () => {
     </div>
   );
 };
-
 export default UserNotFound;

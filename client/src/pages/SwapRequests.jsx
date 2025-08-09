@@ -5,53 +5,39 @@ import Navbar from '../components/Navbar';
 import FeedbackModal from '../components/FeedbackModal';
 import ViewFeedbackModal from '../components/ViewFeedbackModal';
 import { toastError, toastSuccess } from '../lib/useToast';
-
 const baseURL = import.meta.env.VITE_API_BASE_URL;
-
 const SwapRequests = () => {
   const { auth } = useContext(AuthContext);
   const [swapRequests, setSwapRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState('ongoing'); // ongoing, outgoing, incoming, completed
-  
-  // Feedback modal states
+  const [activeTab, setActiveTab] = useState('ongoing'); 
   const [feedbackModal, setFeedbackModal] = useState({
     isOpen: false,
     swapRequest: null,
     targetUser: null
   });
-  
   const [viewFeedbackModal, setViewFeedbackModal] = useState({
     isOpen: false,
     feedback: null,
     targetUser: null
   });
-  
-  // Track feedback status for each completed request
   const [feedbackStatus, setFeedbackStatus] = useState({});
-
-  // Filter requests based on status and direction
   const ongoingRequests = swapRequests.filter(req => 
     req.status === 'accepted' || req.status === 'completion_requested'
   );
-  
   const outgoingRequests = swapRequests.filter(req => 
     req.status === 'pending' && req.fromUser?._id === auth?.userId
   );
-  
   const incomingRequests = swapRequests.filter(req => 
     req.status === 'pending' && req.toUser?._id === auth?.userId
   );
-  
   const completedRequests = swapRequests.filter(req => 
     req.status === 'completed' || req.status === 'rejected'
   );
-
   useEffect(() => {
     fetchSwapRequests();
   }, []);
-
   const fetchSwapRequests = async () => {
     try {
       setLoading(true);
@@ -62,13 +48,10 @@ const SwapRequests = () => {
           'Content-Type': 'application/json',
         },
       });
-
       if (!response.ok) {
         throw new Error('Failed to fetch swap requests');
       }
-
       const data = await response.json();
-      // Filter out invalid requests with missing user data
       const validRequests = data.filter(req => req.fromUser && req.toUser);
       setSwapRequests(validRequests);
     } catch (err) {
@@ -77,7 +60,6 @@ const SwapRequests = () => {
       setLoading(false);
     }
   };
-
   const handleCancelRequest = async (requestId) => {
     try {
       const response = await fetch(`${baseURL}/api/swapRequests/${requestId}`, {
@@ -87,9 +69,8 @@ const SwapRequests = () => {
           'Content-Type': 'application/json',
         },
       });
-
       if (response.ok) {
-        fetchSwapRequests(); // Refresh the list
+        fetchSwapRequests(); 
         toastSuccess('Swap request cancelled successfully!');
       } else {
         const errorData = await response.json();
@@ -99,7 +80,6 @@ const SwapRequests = () => {
       toastError('Error cancelling request: ' + error.message);
     }
   }
-
   const handleAcceptRequest = async (requestId) => {
     try {
       const response = await fetch(`${baseURL}/api/swapRequests/action`, {
@@ -113,9 +93,8 @@ const SwapRequests = () => {
           action: 'accepted'
         }),
       });
-
       if (response.ok) {
-        fetchSwapRequests(); // Refresh the list
+        fetchSwapRequests(); 
         toastSuccess('Swap request accepted!');
       } else {
         const errorData = await response.json();
@@ -125,7 +104,6 @@ const SwapRequests = () => {
       toastError('Error accepting request: ' + error.message);
     }
   };
-
   const handleRejectRequest = async (requestId) => {
     try {
       const response = await fetch(`${baseURL}/api/swapRequests/action`, {
@@ -139,9 +117,8 @@ const SwapRequests = () => {
           action: 'rejected'
         }),
       });
-
       if (response.ok) {
-        fetchSwapRequests(); // Refresh the list
+        fetchSwapRequests(); 
         toastSuccess('Swap request rejected!');
       } else {
         const errorData = await response.json();
@@ -151,7 +128,6 @@ const SwapRequests = () => {
       toastError('Error rejecting request: ' + error.message);
     }
   };
-
   const handleRequestCompletion = async (requestId) => {
     try {
       const response = await fetch(`${baseURL}/api/swapRequests/complete/${requestId}`, {
@@ -161,15 +137,13 @@ const SwapRequests = () => {
           'Content-Type': 'application/json',
         },
       });
-
       if (response.ok) {
-        fetchSwapRequests(); // Refresh the list
+        fetchSwapRequests(); 
       }
     } catch (error) {
       console.error('Error requesting completion:', error);
     }
   };
-
   const handleConfirmCompletion = async (requestId) => {
     try {
       const response = await fetch(`${baseURL}/api/swapRequests/complete-confirm/${requestId}`, {
@@ -179,16 +153,13 @@ const SwapRequests = () => {
           'Content-Type': 'application/json',
         },
       });
-
       if (response.ok) {
-        fetchSwapRequests(); // Refresh the list
+        fetchSwapRequests(); 
       }
     } catch (error) {
       console.error('Error confirming completion:', error);
     }
   };
-
-  // Check if feedback has been given for a swap request
   const checkFeedbackStatus = async (swapRequestId) => {
     try {
       const response = await fetch(`${baseURL}/api/feedback/check/${swapRequestId}`, {
@@ -198,7 +169,6 @@ const SwapRequests = () => {
           'Content-Type': 'application/json',
         },
       });
-
       if (response.ok) {
         const data = await response.json();
         setFeedbackStatus(prev => ({
@@ -210,8 +180,6 @@ const SwapRequests = () => {
       console.error('Error checking feedback status:', error);
     }
   };
-
-  // Load feedback status for completed requests
   useEffect(() => {
     completedRequests.forEach(request => {
       if (request.status === 'completed') {
@@ -219,7 +187,6 @@ const SwapRequests = () => {
       }
     });
   }, [swapRequests]);
-
   const handleGiveFeedback = (swapRequest, targetUser) => {
     setFeedbackModal({
       isOpen: true,
@@ -227,7 +194,6 @@ const SwapRequests = () => {
       targetUser
     });
   };
-
   const handleViewFeedback = (swapRequest, targetUser) => {
     const feedback = feedbackStatus[swapRequest._id]?.feedback;
     setViewFeedbackModal({
@@ -236,9 +202,7 @@ const SwapRequests = () => {
       targetUser
     });
   };
-
   const handleFeedbackSubmitted = (feedback) => {
-    // Update feedback status
     setFeedbackStatus(prev => ({
       ...prev,
       [feedback.swapRequest]: {
@@ -248,7 +212,6 @@ const SwapRequests = () => {
     }));
     toastSuccess('Feedback submitted successfully!');
   };
-
   const closeFeedbackModal = () => {
     setFeedbackModal({
       isOpen: false,
@@ -256,7 +219,6 @@ const SwapRequests = () => {
       targetUser: null
     });
   };
-
   const closeViewFeedbackModal = () => {
     setViewFeedbackModal({
       isOpen: false,
@@ -264,17 +226,13 @@ const SwapRequests = () => {
       targetUser: null
     });
   };
-
   const renderSwapRequestCard = (request) => {
-    // Add null checks for user objects
     if (!request.fromUser || !request.toUser) {
       console.warn('Invalid swap request: missing user data', request);
       return null;
     }
-    
     const isFromCurrentUser = request.fromUser._id === auth?.userId;
     const otherUser = isFromCurrentUser ? request.toUser : request.fromUser;
-
     return (
       <div key={request._id} className="swap-request-card">
         <div className="request-header">
@@ -303,7 +261,6 @@ const SwapRequests = () => {
             </div>
           </div>
         </div>
-
         <div className="request-body">
           <div className="skills-section">
             <div className="offered-skills">
@@ -314,7 +271,6 @@ const SwapRequests = () => {
                 ))}
               </div>
             </div>
-            
             <div className="requested-skills">
               <h4>Skills Requested:</h4>
               <div className="skills-tags">
@@ -324,7 +280,6 @@ const SwapRequests = () => {
               </div>
             </div>
           </div>
-
           {request.note && (
             <div className="request-note">
               <h4>Note:</h4>
@@ -332,7 +287,6 @@ const SwapRequests = () => {
             </div>
           )}
         </div>
-
         <div className="request-actions">
           {request.status === 'pending' && !isFromCurrentUser && (
             <>
@@ -350,14 +304,12 @@ const SwapRequests = () => {
               </button>
             </>
           )}
-
           {request.status === 'pending' && isFromCurrentUser && (
             <div className="pending-status">
               <span className="waiting-text">Waiting for response...</span>
               <span className="cancel-request" onClick={() => handleCancelRequest(request._id)}>Cancel Request</span>
             </div>
           )}
-
           {request.status === 'accepted' && (
             <button 
               className="complete-btn"
@@ -366,7 +318,6 @@ const SwapRequests = () => {
               Request Completion
             </button>
           )}
-
           {request.status === 'completion_requested' && 
            request.completion_request_received_by === auth?.userId && (
             <button 
@@ -376,14 +327,12 @@ const SwapRequests = () => {
               Confirm Completion
             </button>
           )}
-
           {request.status === 'completion_requested' && 
            request.completion_request_sent_by === auth?.userId && (
             <div className="completion-status">
               <span className="waiting-text">Waiting for completion confirmation...</span>
             </div>
           )}
-
           {request.status === 'completed' && (
             <div className="feedback-actions">
               {(() => {
@@ -391,7 +340,6 @@ const SwapRequests = () => {
                 const isFromCurrentUser = request.fromUser._id === auth?.userId;
                 const otherUser = isFromCurrentUser ? request.toUser : request.fromUser;
                 const status = feedbackStatus[request._id];
-                
                 if (status?.feedbackGiven) {
                   return (
                     <button 
@@ -418,10 +366,8 @@ const SwapRequests = () => {
       </div>
     );
   };
-
   const renderTabContent = () => {
     let requestsToShow = [];
-    
     switch (activeTab) {
       case 'ongoing':
         requestsToShow = ongoingRequests;
@@ -438,7 +384,6 @@ const SwapRequests = () => {
       default:
         requestsToShow = [];
     }
-
     if (requestsToShow.length === 0) {
       return (
         <div className="no-requests">
@@ -446,14 +391,12 @@ const SwapRequests = () => {
         </div>
       );
     }
-
     return (
       <div className="requests-list">
         {requestsToShow.map(renderSwapRequestCard).filter(Boolean)}
       </div>
     );
   };
-
   if (loading) {
     return (
       <div className="SwapRequests">
@@ -464,7 +407,6 @@ const SwapRequests = () => {
       </div>
     );
   }
-
   if (error) {
     return (
       <div className="SwapRequests">
@@ -475,7 +417,6 @@ const SwapRequests = () => {
       </div>
     );
   }
-
   if (!auth?.userId) {
     return (
       <div className="SwapRequests">
@@ -486,7 +427,6 @@ const SwapRequests = () => {
       </div>
     );
   }
-
   return (
     <div className='SwapRequests'>
       <Navbar />
@@ -497,7 +437,6 @@ const SwapRequests = () => {
             <span>Total: {swapRequests.length}</span>
           </div>
         </div>
-
         <div className="tabs-container">
           <div className="tabs">
             <button 
@@ -525,13 +464,11 @@ const SwapRequests = () => {
               Completed ({completedRequests.length})
             </button>
           </div>
-
           <div className="tab-content">
             {renderTabContent()}
           </div>
         </div>
       </div>
-
       <FeedbackModal
         isOpen={feedbackModal.isOpen}
         onClose={closeFeedbackModal}
@@ -539,7 +476,6 @@ const SwapRequests = () => {
         targetUser={feedbackModal.targetUser}
         onFeedbackSubmitted={handleFeedbackSubmitted}
       />
-
       <ViewFeedbackModal
         isOpen={viewFeedbackModal.isOpen}
         onClose={closeViewFeedbackModal}
@@ -549,5 +485,4 @@ const SwapRequests = () => {
     </div>
   );
 };
-
 export default SwapRequests;

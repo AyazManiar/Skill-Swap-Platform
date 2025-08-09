@@ -4,22 +4,17 @@ import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-// Icons
 import visibility from "../../assets/icons/visibility.svg";
 import visibilityOff from "../../assets/icons/visibilityOff.svg";
 import tick from "../../assets/icons/tick.svg";
 import cross from "../../assets/icons/cross.svg";
-// Toast
 import { toastSuccess, toastError } from '../../lib/useToast';
-
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 const Signup = () => {
 	const { auth, setAuth } = useContext(AuthContext)
 	const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [enteredPassword, setEnteredPassword] = useState("");
-
-
   const {
     register,
     handleSubmit,
@@ -32,7 +27,6 @@ const Signup = () => {
     validate: (value) =>
       value === passwordValue || "Passwords do not match",
   };
-
   const usernameValidation = {
     required: "Username is required",
     minLength: {
@@ -47,7 +41,6 @@ const Signup = () => {
       message: "Enter a valid email address",
     },
   };
-
   const passwordValidation = {
     required: "Password is required",
     minLength: {
@@ -60,7 +53,6 @@ const Signup = () => {
       sym: (v) => /[!@#$%^&*]/.test(v) || "Need a symbol",
     },
   };
-  
   const onSubmit = async (data) => {
     try {
       const res = await fetch(baseURL + '/api/auth/signup', {
@@ -71,9 +63,7 @@ const Signup = () => {
         credentials: 'include',
         body: JSON.stringify(data)
       });
-
       const responseData = await res.json();
-
       if (responseData.userId) {
         setAuth({
           isLoggedIn: true,
@@ -93,8 +83,6 @@ const Signup = () => {
       toastError("Error occurred during signup. Please try again later. Error: "+error)
     }
   };
-
-
   const checks = {
     length: enteredPassword.length >= 8,
     uppercase: /[A-Z]/.test(enteredPassword),
@@ -108,7 +96,6 @@ const Signup = () => {
   const crossComponent = () => {
     return <img width="22" src={cross} />
   }
-
   if(auth.isLoggedIn){
 	  navigate("/");
   } else{
@@ -119,9 +106,8 @@ const Signup = () => {
           <h2>Join WebsiteName</h2>
           <p>Create your account and start ...</p>
         </div>
-
         <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Username */}
+          {}
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -131,8 +117,7 @@ const Signup = () => {
             {...register("username", usernameValidation)}
           />
           <p className="error-message">{errors.username?.message}</p>
-
-          {/* Email */}
+          {}
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -142,8 +127,7 @@ const Signup = () => {
             {...register("email", emailValidation)}
           />
           <p className="error-message">{errors.email?.message}</p>
-
-          {/* Password */}
+          {}
           <label htmlFor="password">Password</label>
           <div className={errors.password ? 
 							"password-input errors-in-input" : "password-input"}
@@ -164,11 +148,11 @@ const Signup = () => {
                 onClick={() => setShowPassword((prev) => !prev)}
               />
           </div>
-          {/* Progress Bar */}
+          {}
           <div className="password-strength-bar">
             <div className="fill" style={{ width: `${(strength / 4) * 100}%` }} />
           </div>
-          {/* Password Criteria */}
+          {}
           <div className="password-criteria">
             <div className={checks.length ? "criteria-met" : "criteria"}>
               {checks.length ? tickComponent() : crossComponent()} At least 8 characters
@@ -183,8 +167,7 @@ const Signup = () => {
               {checks.symbol ? tickComponent() : crossComponent()} One special character
             </div>
           </div>
-
-          {/* Confirm Password */}
+          {}
           <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             type="password"
@@ -194,13 +177,11 @@ const Signup = () => {
             {...register("confirmPassword", confirmPasswordValidation)}
           />
           <p className="error-message">{errors.confirmPassword?.message}</p>
-
-          {/* Submit Button */}
+          {}
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Submitting..." : "Sign Up"}
           </button>
-
-          {/* Link to Login */}
+          {}
           <p className="go-to-Signup">
             <span>Already have an account?</span>
             <Link to="/login">Log in here</Link>
@@ -211,5 +192,4 @@ const Signup = () => {
   );
   }
 }
-
 export default Signup;

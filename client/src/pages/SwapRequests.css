@@ -1,11 +1,10 @@
-/* SwapRequests.css */
+
 .SwapRequests .swap-requests-container {
   padding: 20px 70px;
   min-height: 100vh;
   background-color: #f8f9fa;
 }
 
-/* Responsive Container */
 @media (max-width: 1024px) {
   .SwapRequests .swap-requests-container {
     padding: 20px 40px;
@@ -33,7 +32,6 @@
   border-bottom: 2px solid #e9ecef;
 }
 
-/* Responsive Page Header */
 @media (max-width: 768px) {
   .SwapRequests .page-header {
     flex-direction: column;
@@ -58,7 +56,6 @@
   color: #333;
 }
 
-/* Responsive Header Title */
 @media (max-width: 768px) {
   .SwapRequests .page-header h1 {
     font-size: 24px;
@@ -91,7 +88,6 @@
   border-bottom: 1px solid #e9ecef;
 }
 
-/* Responsive Tabs */
 @media (max-width: 768px) {
   .SwapRequests .tabs {
     flex-wrap: wrap;
@@ -119,7 +115,6 @@
   position: relative;
 }
 
-/* Responsive Tab */
 @media (max-width: 768px) {
   .SwapRequests .tab {
     width: auto;

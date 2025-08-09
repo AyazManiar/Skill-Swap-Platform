@@ -1,12 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import './App.css'
-// Toast
 import { ToastContainer } from 'react-toastify';
-// Provider
 import { AuthProvider } from "./contexts/AuthContext";
-// Components
 import ProtectedRoute from "./components/ProtectedRoute";
-// Pages
 import Home from "./pages/Home";
 import SignUp from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
@@ -17,7 +13,6 @@ import SwapRequests from "./pages/SwapRequests";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin"
 import NotFound from "./pages/NotFound"
-
 let router = createBrowserRouter([
   {
     path: "/",
@@ -78,7 +73,6 @@ let router = createBrowserRouter([
     element: <NotFound />
   }
 ]);
-
 function App() {
   return (
     <div className="App">
@@ -89,5 +83,4 @@ function App() {
     </div>
   )
 }
-
 export default App

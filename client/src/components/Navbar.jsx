@@ -3,39 +3,30 @@ import { useContext, useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import defaultProfilePicture from "../assets/icons/defaultProfile.jpg";
-
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 const Navbar = () => {
   const { auth, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  
-  // Handle profile picture logic
   const profilePicture = auth.profilePicture === "default.jpg" || !auth.profilePicture 
     ? defaultProfilePicture 
     : auth.profilePicture;
-    
   const location = useLocation();
-
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
   const handleProfileClick = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-
   const handleViewProfile = () => {
     setIsDropdownOpen(false);
     navigate('/my-profile');
@@ -44,13 +35,11 @@ const Navbar = () => {
     setIsDropdownOpen(false);
     navigate('/friends');
   }
-
   const handleLogout =  () => {
     setIsDropdownOpen(false);
     logout()
     navigate('/');
   };
-
   return (
     <div className="Navbar">
       <h1>Skill Swap</h1>
@@ -98,5 +87,4 @@ const Navbar = () => {
     </div>
   );
 };
-
 export default Navbar;

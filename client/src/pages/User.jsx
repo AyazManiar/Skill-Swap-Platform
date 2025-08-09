@@ -3,27 +3,21 @@ import { useParams, useNavigate } from "react-router";
 import { useEffect, useState, Suspense, lazy, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import defaultProfile from '../assets/icons/defaultProfile.jpg';
-
 const UserNotFound = lazy(() => import('./UserNotFound.jsx'));
-
 const baseURL = import.meta.env.VITE_API_BASE_URL;
-
 const User = () => {
   const { username } = useParams();
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
-  const [userFound, setUserFound] = useState(null); // null = loading, true/false = result
+  const [userFound, setUserFound] = useState(null); 
   const [userData, setUserData] = useState(null);
   const [isFriend, setIsFriend] = useState(false);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    // If user is viewing their own profile, redirect to MyProfile page
     if (auth.isLoggedIn && auth.username === username) {
       navigate('/my-profile');
       return;
     }
-
     const fetchUser = async () => {
       try {
         const encodedUsername = encodeURIComponent(username);
@@ -34,11 +28,9 @@ const User = () => {
             "Content-Type": "application/json",
           },
         });
-        
         if (!response.ok) {
           throw new Error("Failed to fetch user");
         }
-        
         const data = await response.json();
         console.log(data);
         setUserFound(data.found);
@@ -53,12 +45,9 @@ const User = () => {
         setLoading(false);
       }
     };
-
     fetchUser();
   }, [username, auth.isLoggedIn, auth.username, navigate]);
-
   if (loading) return <div className="loading">Loading...</div>;
-
   if (!userFound) {
     return (
       <Suspense fallback={<div>Loading user not found page...</div>}>
@@ -66,7 +55,6 @@ const User = () => {
       </Suspense>
     );
   }
-
   return (
     <div className="User">
       <div className="user-header">
@@ -74,13 +62,11 @@ const User = () => {
           ← Back to Home
         </button>
       </div>
-      
       <div className="user-profile">
         <div className="profile-main">
           <div className="profile-picture">
             <img src={defaultProfile} alt={`${userData?.username}'s profile`} />
           </div>
-          
           <div className="profile-info">
             <div className="profile-header">
               <h1>{userData?.username}</h1>
@@ -93,11 +79,9 @@ const User = () => {
                 </div>
               )}
             </div>
-            
             <div className="profile-bio">
               <p>{userData?.bio || 'No bio available'}</p>
             </div>
-            
             <div className="profile-stats">
               <div className="stat">
                 <span className="stat-label">Rating:</span>
@@ -106,7 +90,6 @@ const User = () => {
                   <span className="rating-count">({userData?.reviewCount || 0} reviews)</span>
                 </span>
               </div>
-              
               <div className="stat">
                 <span className="stat-label">Availability:</span>
                 <span className="stat-value">
@@ -116,7 +99,6 @@ const User = () => {
             </div>
           </div>
         </div>
-        
         <div className="profile-skills">
           <div className="skills-section">
             <h3>Skills Offered</h3>
@@ -130,7 +112,6 @@ const User = () => {
               )}
             </div>
           </div>
-          
           <div className="skills-section">
             <h3>Skills Wanted</h3>
             <div className="skills-container">
@@ -147,7 +128,5 @@ const User = () => {
       </div>
     </div>
   );
-
 };
-
 export default User;

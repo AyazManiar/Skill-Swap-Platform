@@ -2,12 +2,10 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { Navigate } from "react-router";
 import { toastError } from "../lib/useToast";
-
 const ProtectedRoute = ({ children, restrictedRoles = [] }) => {
     const { auth } = useContext(AuthContext) || {};
     const isLoggedIn = auth?.isLoggedIn;
     const userRole = auth?.role ?? "";
-
     if (!isLoggedIn) {
         return (
             <>
@@ -16,7 +14,6 @@ const ProtectedRoute = ({ children, restrictedRoles = [] }) => {
             </>
         );
     }
-
     if (restrictedRoles.includes(userRole)) {
         return (
             <>
@@ -25,8 +22,6 @@ const ProtectedRoute = ({ children, restrictedRoles = [] }) => {
             </>
         );
     }
-
     return children;
 };
-
 export default ProtectedRoute;

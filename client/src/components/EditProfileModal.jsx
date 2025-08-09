@@ -1,9 +1,7 @@
 import { useState, useContext } from 'react';
 import './EditProfileModal.css';
 import { AuthContext } from '../contexts/AuthContext';
-
 const baseURL = import.meta.env.VITE_API_BASE_URL;
-
 const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
   const { auth } = useContext(AuthContext);
   const [formData, setFormData] = useState({
@@ -17,7 +15,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
   const [newWantedSkill, setNewWantedSkill] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
   const availabilityOptions = [
     'Weekdays',
     'Weekends', 
@@ -26,7 +23,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
     'Evenings',
     'Flexible'
   ];
-
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -34,7 +30,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
       [name]: type === 'checkbox' ? checked : value
     }));
   };
-
   const handleAvailabilityChange = (option) => {
     setFormData(prev => ({
       ...prev,
@@ -43,14 +38,11 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
         : [...prev.availability, option]
     }));
   };
-
   const addSkill = (type) => {
     const skill = type === 'offered' ? newSkill.trim() : newWantedSkill.trim();
     if (!skill) return;
-
     const skillField = type === 'offered' ? 'skills' : 'skillsWanted';
     const setterField = type === 'offered' ? setNewSkill : setNewWantedSkill;
-
     if (!formData[skillField].includes(skill)) {
       setFormData(prev => ({
         ...prev,
@@ -59,7 +51,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
       setterField('');
     }
   };
-
   const removeSkill = (skill, type) => {
     const skillField = type === 'offered' ? 'skills' : 'skillsWanted';
     setFormData(prev => ({
@@ -67,12 +58,10 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
       [skillField]: prev[skillField].filter(s => s !== skill)
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-
     try {
       const response = await fetch(`${baseURL}/api/users/updateProfile`, {
         method: 'PUT',
@@ -85,11 +74,9 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
           ...formData
         }),
       });
-
       if (!response.ok) {
         throw new Error('Failed to update profile');
       }
-
       const updatedUser = await response.json();
       onProfileUpdated(updatedUser);
     } catch (error) {
@@ -98,7 +85,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
       setLoading(false);
     }
   };
-
   return (
     <div className="modal-overlay">
       <div className="edit-profile-modal">
@@ -106,10 +92,8 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
           <h2>Edit Profile</h2>
           <button className="close-button" onClick={onClose}>×</button>
         </div>
-
         <form onSubmit={handleSubmit} className="modal-content">
           {error && <div className="error-message">{error}</div>}
-
           <div className="form-group">
             <label htmlFor="bio">Bio</label>
             <textarea
@@ -122,7 +106,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
             />
             <small>{formData.bio.length}/500 characters</small>
           </div>
-
           <div className="form-group">
             <label>Profile Visibility</label>
             <label className="checkbox-label">
@@ -135,7 +118,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
               Make my profile public (visible to everyone)
             </label>
           </div>
-
           <div className="form-group">
             <label>Availability</label>
             <div className="availability-options">
@@ -151,7 +133,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
               ))}
             </div>
           </div>
-
           <div className="form-group">
             <label>Skills I Offer</label>
             <div className="skill-input">
@@ -173,7 +154,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
               ))}
             </div>
           </div>
-
           <div className="form-group">
             <label>Skills I Want to Learn</label>
             <div className="skill-input">
@@ -195,7 +175,6 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
               ))}
             </div>
           </div>
-
           <div className="modal-actions">
             <button type="button" onClick={onClose} className="cancel-button">
               Cancel
@@ -209,5 +188,4 @@ const EditProfileModal = ({ currentData, onClose, onProfileUpdated }) => {
     </div>
   );
 };
-
 export default EditProfileModal;

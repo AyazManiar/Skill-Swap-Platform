@@ -1,26 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './FeedbackModal.css';
-
 const FeedbackModal = ({ isOpen, onClose, swapRequest, targetUser, onFeedbackSubmitted }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [hoveredRating, setHoveredRating] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
-
   const baseURL = import.meta.env.VITE_API_BASE_URL;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (rating === 0) {
       setError('Please select a rating');
       return;
     }
-
     setIsSubmitting(true);
     setError('');
-
     try {
       const response = await fetch(`${baseURL}/api/feedback/create`, {
         method: 'POST',
@@ -35,12 +29,10 @@ const FeedbackModal = ({ isOpen, onClose, swapRequest, targetUser, onFeedbackSub
           comment: comment.trim() || undefined
         }),
       });
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to submit feedback');
       }
-
       const data = await response.json();
       onFeedbackSubmitted(data.feedback);
       handleClose();
@@ -50,7 +42,6 @@ const FeedbackModal = ({ isOpen, onClose, swapRequest, targetUser, onFeedbackSub
       setIsSubmitting(false);
     }
   };
-
   const handleClose = () => {
     setRating(0);
     setComment('');
@@ -58,7 +49,6 @@ const FeedbackModal = ({ isOpen, onClose, swapRequest, targetUser, onFeedbackSub
     setError('');
     onClose();
   };
-
   const renderStars = () => {
     return [1, 2, 3, 4, 5].map((star) => (
       <button
@@ -73,9 +63,7 @@ const FeedbackModal = ({ isOpen, onClose, swapRequest, targetUser, onFeedbackSub
       </button>
     ));
   };
-
   if (!isOpen) return null;
-
   return (
     <div className="modal-overlay">
       <div className="feedback-modal">
@@ -83,15 +71,12 @@ const FeedbackModal = ({ isOpen, onClose, swapRequest, targetUser, onFeedbackSub
           <h2>Give Feedback</h2>
           <button className="close-button" onClick={handleClose}>×</button>
         </div>
-
         <div className="modal-content">
           <div className="feedback-info">
             <p>How was your skill swap experience with <strong>{targetUser.username}</strong>?</p>
           </div>
-
           <form onSubmit={handleSubmit}>
             {error && <div className="error-message">{error}</div>}
-
             <div className="rating-section">
               <label>Rating *</label>
               <div className="star-rating">
@@ -110,7 +95,6 @@ const FeedbackModal = ({ isOpen, onClose, swapRequest, targetUser, onFeedbackSub
                 )}
               </div>
             </div>
-
             <div className="comment-section">
               <label htmlFor="comment">Comment (Optional)</label>
               <textarea
@@ -123,7 +107,6 @@ const FeedbackModal = ({ isOpen, onClose, swapRequest, targetUser, onFeedbackSub
               />
               <small>{comment.length}/500 characters</small>
             </div>
-
             <div className="modal-actions">
               <button type="button" onClick={handleClose} className="cancel-btn">
                 Cancel
@@ -142,5 +125,4 @@ const FeedbackModal = ({ isOpen, onClose, swapRequest, targetUser, onFeedbackSub
     </div>
   );
 };
-
 export default FeedbackModal;

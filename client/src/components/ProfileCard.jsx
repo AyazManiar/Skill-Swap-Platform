@@ -4,7 +4,6 @@ import { useState } from "react";
 import defaultPhoto from "../assets/icons/defaultProfile.jpg";
 import SwapRequestModal from "./SwapRequestModal";
 import { toastSuccess, toastError } from '../lib/useToast';
-
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 const ProfileCard = (props) => {
   const {
@@ -19,8 +18,6 @@ const ProfileCard = (props) => {
   } = props;
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-
   const sendSwapRequest = async (requestData) => {
     try {
       const res = await fetch(`${baseURL}/api/swapRequests/create`, {
@@ -31,12 +28,10 @@ const ProfileCard = (props) => {
         },
         body: JSON.stringify(requestData),
       });
-
       if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.message || "Failed to send swap request");
       }
-
       const data = await res.json();
       toastSuccess("Swap request sent successfully!");
       return data;
@@ -45,15 +40,12 @@ const ProfileCard = (props) => {
       throw error;
     }
   };
-
   const handleSwapRequestClick = () => {
     setIsModalOpen(true);
   };
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
   const sendFriendRequest = async () => {
     const res = await fetch(baseURL+"/api/users/sendFriendRequest", {
       method: "POST",
@@ -71,14 +63,12 @@ const ProfileCard = (props) => {
     } else {
       toastError('Error: '+data.message)
     }
-
   }
-
   return (
     <div className="ProfileCard">
       <div className="info">
         <div className="profilePhoto">
-          {/* Profile Picture Code: Remaining */}
+          {}
           <img src={defaultPhoto} alt="Profile Photo" />
         </div>
         <div className="text">
@@ -92,7 +82,7 @@ const ProfileCard = (props) => {
               <div className="friend-badge" onClick={sendFriendRequest}>Add Friend</div>
             </>
             }
-            {/* Friend request feature to be implemented */}
+            {}
           </div>
           <div className="availability">
             <span className="availability-label">Available:</span>
@@ -134,14 +124,13 @@ const ProfileCard = (props) => {
       <div className="right">
         <button onClick={handleSwapRequestClick}>Swap Request</button>
         <div className="rating">
-          {/* ⭐⭐⭐⭐⭐ */}
+          {}
           <span className="stars">
             {"⭐".repeat(Math.round(averageRating)) || "—"}
           </span>
           <span className="reviews">({reviewCount})</span>
         </div>
       </div>
-
       <SwapRequestModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -152,5 +141,4 @@ const ProfileCard = (props) => {
     </div>
   );
 };
-
 export default ProfileCard;

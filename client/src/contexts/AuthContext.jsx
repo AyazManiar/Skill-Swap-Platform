@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useCallback } from "react";
 import { toastSuccess, toastError } from "../lib/useToast";
-
 export const AuthContext = createContext();
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 export const AuthProvider = ({ children }) => {
@@ -12,7 +11,6 @@ export const AuthProvider = ({ children }) => {
     role: null,
   });
   const [loading, setLoading] = useState(true);
-
   const checkLoggedIn = useCallback(async () => {
     try {
       const res = await fetch(baseURL + "/api/auth/checkLoggedIn", {

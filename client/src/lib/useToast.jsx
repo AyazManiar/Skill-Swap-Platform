@@ -1,6 +1,4 @@
 import { toast, Bounce } from 'react-toastify';
-
-// Generates config object
 const defaultOptions = {
   position: "top-right",
   autoClose: 5000,
@@ -11,16 +9,12 @@ const defaultOptions = {
   progress: undefined,
   transition: Bounce,
 };
-
-// Toast helpers
 export const toastDefault = (message, theme = 'light') => {
   toast(message, { ...defaultOptions, theme });
 };
-
 const createToast = (type) => (message, theme = 'light') => {
   toast[type](message, { ...defaultOptions, theme });
 };
-
 export const toastSuccess = createToast('success');
 export const toastError = createToast('error');
 export const toastInfo = createToast('info');

@@ -6,7 +6,6 @@
     gap: 20px;
 }
 
-/* Responsive Availability Container */
 @media (max-width: 768px) {
     .availability-container {
         min-width: auto;
@@ -30,7 +29,6 @@
     overflow-y: auto;
 }
 
-/* Responsive Availability Badges */
 @media (max-width: 768px) {
     .availability-badges {
         justify-content: center;
@@ -57,7 +55,6 @@
     transition: all 0.2s ease;
 }
 
-/* Responsive Availability Badge */
 @media (max-width: 480px) {
     .availability-badge {
         padding: 4px 10px;

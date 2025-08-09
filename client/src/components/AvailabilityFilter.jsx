@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import "./AvailabilityFilter.css";
-
 const availabilityOptions = [
   "Always", "Occasionally", "Monthly", "Biweekly", "Weekly", "One-time",
   "Weekdays", "Weekends",
@@ -8,31 +7,23 @@ const availabilityOptions = [
   "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
   "Specific Hours", "Flexible", "By Appointment", "Unavailable Temporarily"
 ];
-
 const AvailabilityFilter = ({ availability, updateAvailability }) => {
   const [availabilitySearch, setAvailabilitySearch] = useState("");
   const [isAvailabilityOpen, setIsAvailabilityOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  // Handle clicks outside the dropdown to close it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsAvailabilityOpen(false);
       }
     };
-
-    // Add event listener when dropdown is open
     if (isAvailabilityOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
-
-    // Cleanup event listener
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isAvailabilityOpen]);
-
   const handleAvailabilitySelect = async (option) => {
     if (!availability.includes(option)) {
       const newAvailability = [...availability, option];
@@ -41,18 +32,15 @@ const AvailabilityFilter = ({ availability, updateAvailability }) => {
     setAvailabilitySearch("");
     setIsAvailabilityOpen(false);
   };
-
   const handleRemoveAvailability = async (optionToRemove) => {
     if (optionToRemove === "Always") return;
     const newAvailability = availability.filter(option => option !== optionToRemove);
     await updateAvailability(newAvailability);
   };
-
   const filteredOptions = availabilityOptions.filter(option =>
     option.toLowerCase().includes(availabilitySearch.toLowerCase()) &&
     !availability.includes(option)
   );
-
   return (
     <div className="availability-container" ref={dropdownRef}>
       <div className="availability-badges">
@@ -92,5 +80,4 @@ const AvailabilityFilter = ({ availability, updateAvailability }) => {
     </div>
   );
 };
-
 export default AvailabilityFilter;

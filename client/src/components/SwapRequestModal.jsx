@@ -2,7 +2,6 @@ import './SwapRequestModal.css';
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { toastSuccess, toastError } from "../lib/useToast"
-
 const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onSendRequest }) => {
   const [offeredInput, setOfferedInput] = useState('');
   const [offeredSkills, setOfferedSkills] = useState([]);
@@ -10,8 +9,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
   const [requestedSkills, setRequestedSkills] = useState([]);
   const [note, setNote] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -20,7 +17,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
       };
     }
   }, [isOpen]);
-
   const addOfferedSkill = () => {
     if (offeredInput.trim() && !offeredSkills.includes(offeredInput.trim())) {
       setOfferedSkills([...offeredSkills, offeredInput.trim()]);
@@ -30,7 +26,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
   const removeOfferedSkill = (skillToRemove) => {
     setOfferedSkills(offeredSkills.filter(skill => skill !== skillToRemove));
   };
-
   const addRequestedSkill = () => {
     if (requestedInput.trim() && !requestedSkills.includes(requestedInput.trim())) {
       setRequestedSkills([...requestedSkills, requestedInput.trim()]);
@@ -40,7 +35,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
   const removeRequestedSkill = (skillToRemove) => {
     setRequestedSkills(requestedSkills.filter(skill => skill !== skillToRemove));
   };
-
   const handleKeyPress = (e, type) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -56,7 +50,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
       alert('Please add at least one skill to offer and one skill to request.');
       return;
     }
-
     setIsSubmitting(true);
     try {
       await onSendRequest({
@@ -65,8 +58,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
         requestedSkills,
         note
       });
-      
-      // Reset form
       setOfferedSkills([]);
       setRequestedSkills([]);
       setOfferedInput('');
@@ -80,9 +71,7 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
       setIsSubmitting(false);
     }
   };
-
   const handleClose = () => {
-    // Reset form when closing
     setOfferedSkills([]);
     setRequestedSkills([]);
     setOfferedInput('');
@@ -90,9 +79,7 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
     setNote('');
     onClose();
   };
-
   if (!isOpen) return null;
-
   return createPortal(
     <div className="Swap-request-modal-overlay" onClick={handleClose}>
       <div className="Swap-request-modal-content" onClick={(e) => e.stopPropagation()}>
@@ -100,7 +87,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
           <h2>Send Swap Request to {recipientUsername}</h2>
           <button className="Swap-request-close-button" onClick={handleClose}>×</button>
         </div>
-
         <div className="Swap-request-modal-body">
           <div className="Swap-request-skills-section">
             <label>Skills I Can Offer:</label>
@@ -135,7 +121,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
               ))}
             </div>
           </div>
-
           <div className="Swap-request-skills-section">
             <label>Skills I Want to Learn:</label>
             <div className="Swap-request-skill-input-container">
@@ -169,7 +154,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
               ))}
             </div>
           </div>
-
           <div className="Swap-request-note-section">
             <label>Additional Note (Optional):</label>
             <textarea
@@ -181,7 +165,6 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
             />
           </div>
         </div>
-
         <div className="Swap-request-modal-footer">
           <button 
             className="Swap-request-cancel-btn" 
@@ -203,5 +186,4 @@ const SwapRequestModal = ({ isOpen, onClose, recipientUsername, recipientId, onS
     document.body
   );
 };
-
 export default SwapRequestModal;

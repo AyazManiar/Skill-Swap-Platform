@@ -1,4 +1,3 @@
-/* User.css */
 .User {
   min-height: 100vh;
   background-color: #f8f9fa;
@@ -217,7 +216,6 @@
   margin: 0;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .User {
     padding: 10px;

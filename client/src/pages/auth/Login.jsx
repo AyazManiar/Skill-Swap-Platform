@@ -4,25 +4,19 @@ import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-// Icons
 import visibility from "../../assets/icons/visibility.svg";
 import visibilityOff from "../../assets/icons/visibilityOff.svg";
-// Toast
 import { toastSuccess, toastError } from '../../lib/useToast';
-
 const baseURL = import.meta.env.VITE_API_BASE_URL;
-
 const Login = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
-
   const emailValidation = {
     required: "Email is required",
     pattern: {
@@ -30,7 +24,6 @@ const Login = () => {
       message: "Enter a valid email address",
     },
   };
-
   const onSubmit = async (data) => {
     try {
       const res = await fetch(baseURL + "/api/auth/login", {
@@ -41,7 +34,6 @@ const Login = () => {
         credentials: "include",
         body: JSON.stringify(data),
       });
-
       const responseData = await res.json();
       if (responseData.userId) {
         setAuth({
@@ -61,7 +53,6 @@ const Login = () => {
       toastError("Error occurred during login. Please try again later. Error: "+error);
     }
   };
-
   if (auth.isLoggedIn) {
     navigate("/");
   } else {
@@ -73,7 +64,7 @@ const Login = () => {
             <p>Sign in to your WebsiteName account to ...</p>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/* Email */}
+            {}
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -82,8 +73,7 @@ const Login = () => {
               {...register("email", emailValidation)}
             />
             <p className="error-message">{errors.email?.message}</p>
-
-            {/* Password */}
+            {}
             <label htmlFor="password">Password</label>
             <div
               className={
@@ -106,11 +96,9 @@ const Login = () => {
                 onClick={() => setShowPassword((prev) => !prev)}
               />
             </div>
-
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Submitting..." : "Sign In"}
             </button>
-
             <p className="go-to-Signup">
               <span>Don't have an account?</span>
               <Link to="/signup">Sign up here</Link>
@@ -121,5 +109,4 @@ const Login = () => {
     );
   }
 };
-
 export default Login;

@@ -1,5 +1,4 @@
 import User from '../models/User.js';
-
 const restrictTouser = (req, res, next) => {
     const role = req.user.role
     if(!role === 'user') {
@@ -7,5 +6,4 @@ const restrictTouser = (req, res, next) => {
     }
     next()
 }
-
 export default restrictTouser
