@@ -2,6 +2,14 @@
 
 A modern, full-stack social platform that connects people to share and exchange skills. Built with the MERN stack, this application enables users to teach and learn from each other in a structured, feedback-driven environment.
 
+## 📷 Screenshots
+
+![Skill Swap Platform](Photos/Skill%20Swap%20Platform.webp)
+
+![Skill Swap Platform Interface](Photos/Skill%20Swap%20Platform%202.png)
+
+![Skill Swap Platform Features](Photos/Skill%20Swap%20Platform%203.png)
+
 ## 🌟 Features
 
 ### 🔄 **Skill Swapping**
