@@ -31,6 +31,7 @@ mongoose.connect(MONGO_URI)
 app.get('/', (req, res)=>{
     res.send("Hello World!")
 })
+
 app.listen(PORT, (req, res)=>{
-    console.log(`Server listening on: http:
+    console.log(`Server listening on: http://localhost:${PORT}`)
 })

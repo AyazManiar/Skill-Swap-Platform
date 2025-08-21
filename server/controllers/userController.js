@@ -84,18 +84,36 @@ export const getAllUsers = async (req, res) => {
             ? [availabilityQuery]
             : ['Always']; // Default if not provided
 
+    // Handle search query
+    const searchQuery = req.query.search;
+
     try {
         // Build visibility conditions
         let visibilityConditions = [{ isPublic: true }];
         if (isLoggedIn && friendsId.length > 0) {
             visibilityConditions.push({ _id: { $in: friendsId } });
         }
+        
         // Build final query filter
         let queryConditions = [
             { availability: { $in: requestedAvailability } },
             { $or: visibilityConditions },
             { isBanned: false }
         ];
+        
+        // Add search conditions if search query is provided
+        if (searchQuery && searchQuery.trim() !== '') {
+            const searchRegex = new RegExp(searchQuery.trim(), 'i'); // Case-insensitive search
+            queryConditions.push({
+                $or: [
+                    { username: { $regex: searchRegex } },
+                    { bio: { $regex: searchRegex } },
+                    { skills: { $elemMatch: { $regex: searchRegex } } },
+                    { skillsWanted: { $elemMatch: { $regex: searchRegex } } }
+                ]
+            });
+        }
+        
         if (userId) {
             queryConditions.push({ _id: { $ne: userId } }); // Exclude self
         }

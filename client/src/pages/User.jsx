@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router";
 import { useEffect, useState, Suspense, lazy, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import defaultProfile from '../assets/icons/defaultProfile.jpg';
+import SwapRequestModal from '../components/SwapRequestModal';
+import { toastSuccess, toastError } from '../lib/useToast';
 const UserNotFound = lazy(() => import('./UserNotFound.jsx'));
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 const User = () => {
@@ -13,6 +15,64 @@ const User = () => {
   const [userData, setUserData] = useState(null);
   const [isFriend, setIsFriend] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const sendSwapRequest = async (requestData) => {
+    try {
+      const res = await fetch(`${baseURL}/api/swapRequests/create`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Failed to send swap request");
+      }
+      const data = await res.json();
+      toastSuccess("Swap request sent successfully!");
+      return data;
+    } catch (error) {
+      toastError("Error sending swap request:", error);
+      throw error;
+    }
+  };
+
+  const handleSwapRequestClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const sendFriendRequest = async () => {
+    try {
+      const res = await fetch(baseURL+"/api/users/sendFriendRequest", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          targetId: userData._id
+        })
+      });
+      const data = await res.json();
+      if(res.ok){
+        toastSuccess(data.message);
+        // Optionally update the friend status locally
+        // setIsFriend(true);
+      } else {
+        toastError('Error: '+data.message);
+      }
+    } catch (error) {
+      toastError('Error sending friend request');
+      console.error("Error sending friend request:", error);
+    }
+  };
   useEffect(() => {
     if (auth.isLoggedIn && auth.username === username) {
       navigate('/my-profile');
@@ -72,10 +132,19 @@ const User = () => {
               <h1>{userData?.username}</h1>
               {auth.isLoggedIn && auth.username !== userData?.username && (
                 <div className="profile-actions">
-                  <button className={`friend-button ${isFriend ? 'friend' : 'add-friend'}`}>
+                  <button 
+                    className={`friend-button ${isFriend ? 'friend' : 'add-friend'}`}
+                    onClick={isFriend ? undefined : sendFriendRequest}
+                    disabled={isFriend}
+                  >
                     {isFriend ? 'Friends' : 'Add Friend'}
                   </button>
-                  <button className="request-button">Send Swap Request</button>
+                  <button 
+                    className="request-button"
+                    onClick={handleSwapRequestClick}
+                  >
+                    Send Swap Request
+                  </button>
                 </div>
               )}
             </div>
@@ -126,6 +195,13 @@ const User = () => {
           </div>
         </div>
       </div>
+      <SwapRequestModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        recipientUsername={userData?.username}
+        recipientId={userData?._id}
+        onSendRequest={sendSwapRequest}
+      />
     </div>
   );
 };

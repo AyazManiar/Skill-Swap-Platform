@@ -10,6 +10,7 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
 const Home = () => {
   const { auth } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
+  const [searchtext, setSearchtext] = useState("")
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [availability, setAvailability] = useState(() => {
@@ -26,14 +27,20 @@ const Home = () => {
     }
     setAvailability(newAvailability);
     localStorage.setItem('availability', JSON.stringify(newAvailability));
-    await getAllUsers(newAvailability);
+    await getAllUsers(newAvailability, searchtext);
   };
-  const getAllUsers = async (availabilityFilter = availability) => {
+  const getAllUsers = async (availabilityFilter = availability, searchText = "") => {
     setLoading(true);
     setError(null);
     try {
       const params = new URLSearchParams();
       availabilityFilter.forEach((value) => params.append("availability", value)); 
+      
+      // Add search parameter if search text is provided
+      if (searchText.trim() !== "") {
+        params.append("search", searchText.trim());
+      }
+      
       const res = await fetch(baseURL+`/api/users/visible?${params.toString()}`, {
         method: "GET",
         credentials: "include",
@@ -54,6 +61,9 @@ const Home = () => {
       setLoading(false);
     }
   };
+  const searchUser = async () => {
+    await getAllUsers(availability, searchtext);
+  };
   return (
     <div className="Home">
       <Navbar />
@@ -64,8 +74,21 @@ const Home = () => {
                 updateAvailability={updateAvailability}
             />
           <div className="search-bar-container">
-            <input type="text" />
-            <img src={search} width={22} alt="Search" />
+            <input type="text" value={searchtext} 
+              onChange={(e) => {
+                setSearchtext(e.target.value);
+                // If search is cleared, refresh the user list
+                if (e.target.value.trim() === "") {
+                  getAllUsers(availability, "");
+                }
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  searchUser();
+                }
+              }}
+              placeholder="Search users by name, bio, or skills..." />
+            <img src={search} width={22} alt="Search" onClick={() => searchUser()} />
           </div>
         </div>
         <div className="profileList">
