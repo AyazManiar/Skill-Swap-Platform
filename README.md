@@ -1,6 +1,6 @@
 # 🔄 Skill-Swap-Platform
 
-A modern, full-stack social platform that connects people to share and exchange skills. Built with the MERN stack, this application enables users to teach and learn from each other in a structured, feedback-driven environment.
+A modern, full-stack social platform that connects people to share and exchange skills. Built with the MERN stack, this application enables users to teach and learn from each other in a structured and feedback-driven environment.
 
 ## 📷 Screenshots
 
